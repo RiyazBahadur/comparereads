@@ -34,7 +34,10 @@ const scrapeLogic = async (res) => {
           node.querySelector('.kc-rank-card-author')?.innerText,
           node.querySelector('.kc-rank-card-publisher')?.innerText,
           node.querySelector('a.kc-cover-link')?.getAttribute('href'),
-          node.querySelector('a.kc-cover-link>img')?.getAttribute('src')
+          node.querySelector('a.kc-cover-link>img')?.getAttribute('src'),
+          node.querySelector('.kc-data-story-text-container>p')?.innerText,
+          node.querySelector('div.average-rating')?.innerText,
+          node.querySelector('div.kc-data-story-text-container')?.innerHTML          
         ]);
         return texts;
       }
