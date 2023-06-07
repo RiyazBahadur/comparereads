@@ -17,27 +17,18 @@ const scrapeLogic = async (res) => {
   try {
     const page = await browser.newPage();
 
-    await page.goto("https://developer.chrome.com/");
+    await page.goto("https://www.amazon.com/charts/2023-06-04/mostread/fiction");
 
     // Set screen size
     await page.setViewport({ width: 1080, height: 1024 });
-
-    // Type into search box
-    await page.type(".search-box__input", "automate beyond recorder");
-
-    // Wait and click on first result
-    const searchResultSelector = ".search-box__link";
-    await page.waitForSelector(searchResultSelector);
-    await page.click(searchResultSelector);
-
-    // Locate the full title with a unique string
-    const textSelector = await page.waitForSelector(
-      "text/Customize and automate"
-    );
-    const fullTitle = await textSelector.evaluate((el) => el.textContent);
+    
+    const f = await page.$(".kc-rank-card-title")
+   //obtain text
+   const text = await (await f.getProperty('textContent')).jsonValue()
+   console.log("Text is: " + text)
 
     // Print the full title
-    const logStatement = `The title of this blog post is ${fullTitle}`;
+    const logStatement = `The title of this blog post is ${text}`;
     console.log(logStatement);
     res.send(logStatement);
   } catch (e) {
